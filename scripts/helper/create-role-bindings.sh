@@ -145,7 +145,7 @@ confluent iam rbac role-binding create \
 confluent iam rbac role-binding create \
     --principal $CONNECTOR_SUBMITTER \
     --role ResourceOwner \
-    --resource Connector:datagen-orders-avro \
+    --resource Connector:datagen-orders \
     --kafka-cluster-id $KAFKA_CLUSTER_ID \
     --connect-cluster-id $CONNECT
 
