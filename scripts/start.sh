@@ -46,7 +46,7 @@ fi
 #-------------------------------------------------------------------------------
 
 # Bring up openldap
-docker-compose up --no-recreate -d openldap
+docker-compose up -d openldap
 sleep 5
 if [[ $(docker-compose ps openldap | grep Exit) =~ "Exit" ]] ; then
   echo "ERROR: openldap container could not start. Troubleshoot and try again. For troubleshooting instructions see https://docs.confluent.io/platform/current/tutorials/cp-demo/docs/troubleshooting.html"
@@ -56,14 +56,14 @@ fi
 
 
 # Bring up tools
-docker-compose up --no-recreate -d tools
+docker-compose up -d tools
 
 # Add root CA to container (obviates need for supplying it at CLI login '--ca-cert-path')
 docker-compose exec tools bash -c "cp /etc/kafka/secrets/snakeoil-ca-1.crt /usr/local/share/ca-certificates && /usr/sbin/update-ca-certificates"
 
 
 # Bring up base kafka cluster
-docker-compose up --no-recreate -d zookeeper kafka1 kafka2
+docker-compose up -d zookeeper kafka1 kafka2
 
 # Verify MDS has started
 MAX_WAIT=150
@@ -86,7 +86,7 @@ docker-compose exec kafka1 kafka-configs \
 
 
 # Bring up more containers
-docker-compose up --no-recreate -d schemaregistry connect control-center
+docker-compose up -d schemaregistry connect control-center
 
 echo
 echo -e "Create topics in Kafka cluster:"
@@ -130,7 +130,7 @@ echo
 #-------------------------------------------------------------------------------
 
 # Start more containers
-docker-compose up --no-recreate -d ksqldb-server ksqldb-cli restproxy
+docker-compose up -d ksqldb-server ksqldb-cli restproxy
 
 # Verify ksqlDB server has started
 echo
@@ -153,7 +153,7 @@ ${DIR}/consumers/listen_WIKIPEDIA_COUNT_GT_1.sh
 echo
 echo
 echo "Start the Kafka Streams application wikipedia-activity-monitor"
-docker-compose up --no-recreate -d streams-demo
+docker-compose up -d streams-demo
 echo "..."
 
 

@@ -142,6 +142,28 @@ confluent iam rbac role-binding create \
     --kafka-cluster-id $KAFKA_CLUSTER_ID \
     --schema-registry-cluster-id $SR
 
+confluent iam rbac role-binding create \
+    --principal $CONNECTOR_SUBMITTER \
+    --role ResourceOwner \
+    --resource Connector:datagen-orders-avro \
+    --kafka-cluster-id $KAFKA_CLUSTER_ID \
+    --connect-cluster-id $CONNECT
+
+confluent iam rbac role-binding create \
+    --principal $CONNECTOR_PRINCIPAL \
+    --role ResourceOwner \
+    --resource Topic:orders \
+    --prefix \
+    --kafka-cluster-id $KAFKA_CLUSTER_ID
+
+confluent iam rbac role-binding create \
+    --principal $CONNECTOR_PRINCIPAL \
+    --role ResourceOwner \
+    --resource Subject:orders \
+    --prefix \
+    --kafka-cluster-id $KAFKA_CLUSTER_ID \
+    --schema-registry-cluster-id $SR
+
 # enable.idempotence=true requires IdempotentWrite
 confluent iam rbac role-binding create \
     --principal $CONNECTOR_PRINCIPAL \
