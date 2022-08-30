@@ -133,6 +133,57 @@ retry $MAX_WAIT host_check_schema_registered || exit 1
 
 #-------------------------------------------------------------------------------
 
+echo -e "\nStart streaming from the Datagen source connector:"
+${DIR}/connectors/submit_datagen_config.sh || exit 1
+
+# Verify connector is running
+MAX_WAIT=120
+echo
+echo "Waiting up to $MAX_WAIT seconds for connector to be in RUNNING state"
+retry $MAX_WAIT check_connector_status_running "datagen-orders" || exit 1
+
+# Verify wikipedia.parsed topic is populated and schema is registered
+MAX_WAIT=120
+echo
+echo -e "Waiting up to $MAX_WAIT seconds for subject orders (for topic orders) to be registered in Schema Registry"
+retry $MAX_WAIT host_check_schema_registered || exit 1
+
+#-------------------------------------------------------------------------------
+
+echo -e "\nStart streaming from the Datagen source connector:"
+${DIR}/connectors/submit_datagen_config.sh || exit 1
+
+# Verify connector is running
+MAX_WAIT=120
+echo
+echo "Waiting up to $MAX_WAIT seconds for connector to be in RUNNING state"
+retry $MAX_WAIT check_connector_status_running "datagen-orders" || exit 1
+
+# Verify wikipedia.parsed topic is populated and schema is registered
+MAX_WAIT=120
+echo
+echo -e "Waiting up to $MAX_WAIT seconds for subject orders (for topic orders) to be registered in Schema Registry"
+retry $MAX_WAIT host_check_schema_registered || exit 1
+
+#-------------------------------------------------------------------------------
+
+echo -e "\nStart streaming from the Datagen source connector:"
+${DIR}/connectors/submit_datagen_config.sh || exit 1
+
+# Verify connector is running
+MAX_WAIT=120
+echo
+echo "Waiting up to $MAX_WAIT seconds for connector to be in RUNNING state"
+retry $MAX_WAIT check_connector_status_running "datagen-orders" || exit 1
+
+# Verify wikipedia.parsed topic is populated and schema is registered
+MAX_WAIT=120
+echo
+echo -e "Waiting up to $MAX_WAIT seconds for subject orders (for topic orders) to be registered in Schema Registry"
+retry $MAX_WAIT host_check_schema_registered || exit 1
+
+#-------------------------------------------------------------------------------
+
 # Verify Confluent Control Center has started
 MAX_WAIT=300
 echo
